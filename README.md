@@ -1,6 +1,6 @@
 # 🧠 AI Trip Planner
 
-An intelligent trip planning web app that generates personalized travel itineraries based on your destination, trip duration, and budget — powered by the Gemini AI API.
+An intelligent trip planning web app that generates personalized travel itineraries based on your destination, trip duration, and budget — powered by the Gemini AI API & Unspalash API.
 
 ---
 
@@ -17,6 +17,7 @@ This app helps users plan their trip effortlessly using AI. Key features include
   - Pubs and nightlife
   - Famous attractions
 - Gemini API used to fetch real-time place data and generate descriptive content
+- Unsplash API used to for image generation of the places
 - Images of the places are shown dynamically in the interface
 
 ---
@@ -27,7 +28,7 @@ This project uses the following technologies:
 
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Python (Flask)
-- **AI Integration:** Gemini API (Google AI)
+- **AI Integration:** Gemini API (Google AI), Unspalash API
 - **Environment Management:** Python venv
 - **Optional Hosting:** Render / Heroku / Local Flask Server
 
@@ -76,6 +77,7 @@ Create a `.env` file in the root directory and paste your API key like this:
 
 ```env
 GEMINI_API_KEY=your_actual_gemini_api_key_here
+UNSPALASH_API_KEY=your_actual_unsplash_api_key_here
 ```
 
 ### 5. Run the Flask App
@@ -86,16 +88,6 @@ python app.py
 
 Open your browser and navigate to:  
 `http://localhost:5000`
-
----
-
-## 📸 Sample Screenshot
-
-You can add a screenshot of the running web app here:
-
-```markdown
-![Trip Planner Screenshot](path-to-your-screenshot.png)
-```
 
 ---
 
