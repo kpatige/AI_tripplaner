@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Trip to {{ place }} | Travel Planner</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles1.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-map-marked-alt"></i> Travel Itinerary</h1>
+      <h2>{{ place }}</h2>
+    </header>
+
+    <div class="destination-image">
+      <img src="{{ destination_image }}" alt="Image of {{ place }}" id="destination-photo">
+    </div>
+
+    <div class="trip-details">
+      <div class="detail-card">
+        <div class="icon"><i class="fas fa-wallet"></i></div>
+        <div class="info">
+          <h3>Budget</h3>
+          <p>${{ budget }}</p>
+        </div>
+      </div>
+<!-- Weather Forecast Section -->
+{% if has_weather and day_plans %}
+<div class="weather-container">
+  <h3><i class="fas fa-cloud-sun"></i> Weather Forecast</h3>
+  <div class="weather-cards">
+    {% for day in day_plans if day.weather %}
+    <div class="weather-card">
+      <div class="weather-date">Day {{ day.weather.day_number }} <span>{{ day.weather.date }}</span></div>
+      <div class="weather-icon">
+        <img src="http://openweathermap.org/img/wn/{{ day.weather.icon }}@2x.png" alt="{{ day.weather.description }}">
+      </div>
+      <div class="weather-temp">
+        {{ day.weather.max_temp }}°<span>/{{ day.weather.min_temp }}°</span>
+      </div>
+      <div class="weather-condition">{{ day.weather.description }}</div>
+      <div class="weather-humidity"><i class="fas fa-tint"></i> {{ day.weather.humidity }}%</div>
+      <div class="aqi-indicator {{ day.weather.aqi_class }}">AQI {{ day.weather.aqi_value }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+      
+      <div class="detail-card">
+        <div class="icon"><i class="fas fa-calendar-alt"></i></div>
+        <div class="info">
+          <h3>Duration</h3>
+          <p>{{ days }} Days</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="itinerary-container">
+      <h2><i class="fas fa-list-alt"></i> Day-by-Day Plan</h2>
+      
+      {% if day_plans %}
+        {% for day in day_plans %}
+        <div class="day-card">
+          <div class="day-header" onclick="toggleDetails(this)">
+            <h3>Day {{ day.number }}: {{ day.title }}</h3>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="day-content">
+            <div class="day-image" onclick="toggleDetails(this.nextElementSibling)">
+              <img src="{{ day.image_url }}" alt="Day {{ day.number }} activities">
+            </div>
+            <div class="day-details">
+              {% if day.schedule %}
+                <div class="time-schedule">
+                  {% for item in day.schedule %}
+                    <div class="time-block" onclick="toggleLocationImage(this)">
+                      <div class="time-header">
+                        <span class="time">{{ item.time }}</span>
+                        <span class="activity">{{ item.activity }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                      <div class="location-image">
+                        <img src="{{ item.image_url }}" alt="{{ item.activity }}">
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ day.activities|safe }}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="raw-itinerary">
+          <pre>{{ itinerary }}</pre>
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="action-buttons">
+      <a href="/" class="btn primary-btn"><i class="fas fa-plane"></i> Plan Another Trip</a>
+      <a href="#" class="btn secondary-btn" onclick="window.print()"><i class="fas fa-print"></i> Print Itinerary</a>
+      <a href="#" class="btn secondary-btn" id="share-btn"><i class="fas fa-share-alt"></i> Share</a>
+    </div>
+    
+    <footer>
+      <p>Created with <i class="fas fa-heart"></i> by Travel Planner App</p>
+    </footer>
+  </div>
+
+  <script>
+    // Toggle day details when clicking on day header or image
+    function toggleDetails(element) {
+      // If we clicked on the header, we need to find the details
+      if (element.classList.contains('day-header')) {
+        const dayCard = element.closest('.day-card');
+        const details = dayCard.querySelector('.day-details');
+        details.classList.toggle('active');
+        
+        // Toggle the chevron icon
+        const icon = element.querySelector('i');
+        if (icon.classList.contains('fa-chevron-down')) {
+          icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        } else {
+          icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        }
+      } 
+      // If we clicked directly on the details element (from image click)
+      else {
+        element.classList.toggle('active');
+        
+        // Also toggle the icon in the header
+        const dayCard = element.closest('.day-card');
+        const icon = dayCard.querySelector('.day-header i');
+        if (element.classList.contains('active')) {
+          icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        } else {
+          icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        }
+      }
+    }
+    
+    // Toggle location image when clicking on time block
+    function toggleLocationImage(timeBlock) {
+      const locationImage = timeBlock.querySelector('.location-image');
+      locationImage.classList.toggle('active');
+      
+      // Toggle the chevron icon
+      const icon = timeBlock.querySelector('.time-header i');
+      if (icon.classList.contains('fa-chevron-down')) {
+        icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+      } else {
+        icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+      }
+    }
+
+    // Simple share functionality
+    document.getElementById('share-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Check if Web Share API is supported
+      if (navigator.share) {
+        navigator.share({
+          title: 'My Travel Itinerary for {{ place }}',
+          text: 'Check out my travel plan for {{ place }}!',
+          url: window.location.href,
+        })
+        .catch((error) => console.log('Error sharing:', error));
+      } else {
+        // Fallback - copy URL to clipboard
+        const dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.value = window.location.href;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        
+        alert('URL copied to clipboard! You can now share it manually.');
+      }
+    });
+  </script>
+</body>
+</html>

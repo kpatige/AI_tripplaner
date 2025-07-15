@@ -1,0 +1,513 @@
+/* Modern Compact Travel Itinerary Styles */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+    --radius: 6px;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --transition: all 0.25s ease;
+  }
+  
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f8fafc;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+  
+  /* Header Styles */
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  header h1 {
+    color: var(--dark-color);
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  
+  header h2 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-top: 0;
+    font-weight: 500;
+  }
+  
+  /* Destination Image */
+  .destination-image {
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin: 0 auto 20px;
+    max-width: 600px;
+    position: relative;
+  }
+  
+  .destination-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+  }
+  
+  /* Trip Details */
+  .trip-details {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .detail-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    min-width: 160px;
+    transition: var(--transition);
+  }
+  
+  .detail-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail-card .icon {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin-right: 12px;
+  }
+  
+  .detail-card .info h3 {
+    margin: 0 0 3px 0;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-weight: 500;
+  }
+  
+  .detail-card .info p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-color);
+  }
+  
+  /* Itinerary Container */
+  .itinerary-container {
+    margin-bottom: 25px;
+  }
+  
+  .itinerary-container h2 {
+    text-align: center;
+    color: var(--dark-color);
+    margin-bottom: 15px;
+  }
+  
+  /* Day Cards */
+  .day-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+    margin-bottom: 15px;
+  }
+  
+  .day-card:hover {
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+  }
+  
+  .day-header {
+    padding: 12px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .day-header:hover {
+    background-color: #2980b9;
+  }
+  
+  .day-header h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .day-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .day-image {
+    height: 90px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .day-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .day-details {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 0.95rem;
+  }
+  
+  .day-details.active {
+    padding: 15px;
+    max-height: 1000px;
+  }
+  
+  /* Time Schedule Boxes */
+  .time-schedule {
+    margin-top: 10px;
+  }
+  
+  .time-block {
+    background-color: #f5f7fa;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 10px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+  }
+  
+  .time-block:hover {
+    transform: translateX(3px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .time-header {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+  }
+  
+  .time {
+    font-weight: 600;
+    color: var(--primary-color);
+    min-width: 70px;
+  }
+  
+  .activity {
+    flex-grow: 1;
+    padding: 0 15px;
+  }
+  
+  .time-header i {
+    color: #95a5a6;
+    transition: var(--transition);
+  }
+  
+  .location-image {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .location-image.active {
+    max-height: 200px;
+  }
+  
+  .location-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  /* Raw Itinerary */
+  .raw-itinerary {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+  }
+  
+  .raw-itinerary pre {
+    white-space: pre-wrap;
+    font-family: inherit;
+    margin: 0;
+  }
+  
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .primary-btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+  
+  .secondary-btn {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+  
+  .secondary-btn:hover {
+    background-color: #f0f7ff;
+    transform: translateY(-2px);
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 15px;
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-top: 20px;
+  }
+  
+  footer i {
+    color: #e74c3c;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .detail-card {
+      min-width: 140px;
+      padding: 12px;
+    }
+    
+    header h1 {
+      font-size: 1.8rem;
+    }
+    
+    header h2 {
+      font-size: 1.3rem;
+    }
+    
+    .destination-image {
+      height: 120px;
+    }
+    
+    .day-image {
+      height: 80px;
+    }
+    
+    .time-header {
+      flex-wrap: wrap;
+    }
+    
+    .time {
+      margin-bottom: 5px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      padding: 12px;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+    }
+    
+    .btn {
+      width: 100%;
+      justify-content: center;
+      padding: 10px;
+    }
+    
+    .destination-image {
+      height: 100px;
+    }
+    
+    .day-image {
+      height: 70px;
+    }
+    
+    .trip-details {
+      gap: 8px;
+    }
+    
+    .detail-card {
+      min-width: calc(50% - 6px);
+      flex-grow: 1;
+    }
+    
+    .time-header {
+      padding: 8px 12px;
+    }
+  }
+/* Weather Forecast Styling */
+.weather-container {
+  margin: 20px auto;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 15px;
+  max-width: 800px;
+}
+
+.weather-container h3 {
+  color: var(--dark-color);
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.weather-cards {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+}
+
+.weather-card {
+  flex: 0 0 120px;
+  background: linear-gradient(to bottom, #3498db, #2980b9);
+  border-radius: var(--radius);
+  color: white;
+  text-align: center;
+  padding: 12px 8px;
+  min-width: 120px;
+  transition: var(--transition);
+}
+
+.weather-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.weather-date {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.weather-date span {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+.weather-icon {
+  margin: 5px 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-icon img {
+  width: 55px;
+  height: 55px;
+}
+
+.weather-temp {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.weather-temp span {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  font-weight: normal;
+}
+
+.weather-condition {
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.weather-humidity {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+/* AQI indicator styling similar to image */
+.aqi-indicator {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: 5px;
+  color: white;
+}
+
+.aqi-good {
+  background-color: #2ecc71;
+}
+
+.aqi-moderate {
+  background-color: #f39c12;
+}
+
+.aqi-poor {
+  background-color: #e74c3c;
+}
+
+/* Make sure the weather cards scroll nicely on mobile */
+@media (max-width: 768px) {
+  .weather-cards {
+    gap: 8px;
+  }
+  
+  .weather-card {
+    min-width: 100px;
+    padding: 10px 5px;
+  }
+}
